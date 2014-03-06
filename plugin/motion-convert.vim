@@ -1,8 +1,14 @@
 function! MotionConverter()
-  let s:current_path = expand('<sfile>:p:h')
   ruby << EOF
-    require '~/.vim/bundle/motion-mode-vim/lib/motion/code_converter.rb'
-    $curbuf.append($curbuf.line_number, Motion::CodeConverter.new($curbuf.line).result)
-    $curbuf.delete($curbuf.line_number)
+    first = VIM.evaluate("getpos(\"'<\")[1]")
+    last = VIM.evaluate("getpos(\"'>\")[1]")
+    if $curbuf.line_number == last
+      require '~/.vim/bundle/motion-mode-vim/lib/motion/code_converter.rb'
+      lines = (first..last).map{|n| $curbuf[n]}.join("\n")
+      (first..last).size.times { $curbuf.delete(first) }
+      Motion::CodeConverter.new(lines).result.split("\n").reverse.each do |line|
+        $curbuf.append(first-1, line)
+      end
+    end
 EOF
 endfunction
