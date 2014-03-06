@@ -67,7 +67,7 @@ ARGV.each do|f|
   end
 end
 
-File.open('motion-mode', 'w+') do |f|
+File.open('tmp/motion-dict', 'w+') do |f|
   dict.keys.each do |key|
     f.puts key
   end
