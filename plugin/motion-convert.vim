@@ -12,3 +12,4 @@ function! MotionConverter()
     end
 EOF
 endfunction
+
