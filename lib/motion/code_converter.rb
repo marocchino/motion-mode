@@ -72,6 +72,7 @@ module Motion
       multilines_to_one_line
       replace_nsstring
       mark_spaces_in_string
+      convert_outlets
       convert_methods
       convert_blocks
       convert_square_brackets_expression
@@ -96,6 +97,13 @@ module Motion
     def mark_spaces_in_string
       @s.gsub!(/("(?:[^\\"]|\\.)*")/) do |match|
         self.class.characters_to_mark(Regexp.last_match)
+      end
+      self
+    end
+
+    def convert_outlets
+      @s.gsub!(/.+IBOutlet\s+(\w+)\s*\*?\s*(\w+)/) do |matches|
+        $1 == "id" ? "outlet :#{$2}" : "outlet :#{$2}, #{$1}"
       end
       self
     end

@@ -64,6 +64,29 @@ S
     end
   end
 
+  describe "#convert_outlets" do
+    it 'outlet with class' do
+      source   = '@property IBOutlet UILabel * title;'
+      expected = 'outlet :title, UILabel;'
+      c = Motion::CodeConverter.new(source)
+      c.convert_outlets.s.should eq(expected)
+    end
+
+    it 'outlet with class' do
+      source   = '@property IBOutlet UILabel* title;'
+      expected = 'outlet :title, UILabel;'
+      c = Motion::CodeConverter.new(source)
+      c.convert_outlets.s.should eq(expected)
+    end
+
+    it 'outlet with id' do
+      source   = '@property IBOutlet id untyped_label;'
+      expected = 'outlet :untyped_label;'
+      c = Motion::CodeConverter.new(source)
+      c.convert_outlets.s.should eq(expected)
+    end
+  end
+
   describe "#convert_method" do
     it 'method without args' do
       source   = '- (void)application {'
