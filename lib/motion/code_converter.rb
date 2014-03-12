@@ -109,7 +109,7 @@ module Motion
     end
 
     def convert_methods
-      @s.gsub!(/-\s*\([^\)]+\)(\w+)(:\s*\([^\)]+\)\s*(\w+))?((\s+\w+:\s*\([^\)]+\)\s*\w+)*)\s*\{/) do |match|
+      @s.gsub!(/-\s*\([^\)]+\)\s*(\w+)(:\s*\([^\)]+\)\s*(\w+))?((\s+\w+:\s*\([^\)]+\)\s*\w+)*)\s*\{/) do |match|
         self.class.convert_method_with_args(Regexp.last_match)
       end
       self

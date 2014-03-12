@@ -95,6 +95,13 @@ S
       c.convert_methods.s.should eq(expected)
     end
 
+    it 'method without args' do
+      source   = '-(void) application {'
+      expected = 'def application {'
+      c = Motion::CodeConverter.new(source)
+      c.convert_methods.s.should eq(expected)
+    end
+
     it 'method with one arg' do
       source   = '- (BOOL)application:(UIApplication *)application {'
       expected = 'def application(application) {'
