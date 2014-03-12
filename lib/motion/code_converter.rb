@@ -78,6 +78,7 @@ module Motion
       convert_square_brackets_expression
       convert_hash
       convert_array
+      convert_i18n
       convert_yes_no_to_true_false
       remove_semicolon_at_the_end
       remove_autorelease
@@ -134,6 +135,13 @@ module Motion
     def convert_array
       @s.gsub!(/(\w+)\.objectAtIndex\(([^\)]+)\)/) do |match|
         "#{$1}[#{$2}]"
+      end
+      self
+    end
+
+    def convert_i18n
+      @s.gsub!(/NSLocalizeString\(("[^")]+"|\w+)(,\s*""\s*)?\)/) do |match|
+        "I18n.t(#{$1})"
       end
       self
     end

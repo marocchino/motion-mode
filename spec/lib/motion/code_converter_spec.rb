@@ -244,6 +244,23 @@ S
     end
   end
 
+  describe "#convert_i18n" do
+    it 'change NSLocalizeString' do
+      source   = 'NSLocalizeString("aaaaa", "")'
+      expected = 'I18n.t("aaaaa")'
+      c = Motion::CodeConverter.new(source)
+      c.convert_i18n
+      c.s.should eq(expected)
+    end
+    it 'change NSLocalizeString' do
+      source   = 'NSLocalizeString(aaaaa,"")'
+      expected = 'I18n.t(aaaaa)'
+      c = Motion::CodeConverter.new(source)
+      c.convert_i18n
+      c.s.should eq(expected)
+    end
+  end
+
 
   describe "#remove_type_declaration" do
     it 'remove type declaration' do
