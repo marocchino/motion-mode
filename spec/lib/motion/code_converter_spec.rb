@@ -245,15 +245,15 @@ S
   end
 
   describe "#convert_i18n" do
-    it 'change NSLocalizeString' do
-      source   = 'NSLocalizeString("aaaaa", "")'
+    it 'change NSLocalizedString' do
+      source   = 'NSLocalizedString("aaaaa", "")'
       expected = 'I18n.t("aaaaa")'
       c = Motion::CodeConverter.new(source)
       c.convert_i18n
       c.s.should eq(expected)
     end
-    it 'change NSLocalizeString' do
-      source   = 'NSLocalizeString(aaaaa,"")'
+    it 'change NSLocalizedString' do
+      source   = 'NSLocalizedString(aaaaa,"")'
       expected = 'I18n.t(aaaaa)'
       c = Motion::CodeConverter.new(source)
       c.convert_i18n

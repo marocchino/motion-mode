@@ -140,7 +140,7 @@ module Motion
     end
 
     def convert_i18n
-      @s.gsub!(/NSLocalizeString\(("[^")]+"|\w+)(,\s*""\s*)?\)/) do |match|
+      @s.gsub!(/NSLocalizedString\(("[^")]+"|\w+)(,\s*""\s*)?\)/) do |match|
         "I18n.t(#{$1})"
       end
       self
