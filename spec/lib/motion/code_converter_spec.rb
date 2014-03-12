@@ -208,7 +208,44 @@ S
     end
   end
 
-  describe "remove_type_declaration" do
+  describe "#convert_hash" do
+    it 'change objectForkey with string' do
+      source   = 'category.objectForkey("subcategory")'
+      expected = 'category["subcategory"]'
+      c = Motion::CodeConverter.new(source)
+      c.convert_hash
+      c.s.should eq(expected)
+    end
+
+    it 'change objectForkey with variable' do
+      source   = 'category.objectForkey(subcategory)'
+      expected = 'category[subcategory]'
+      c = Motion::CodeConverter.new(source)
+      c.convert_hash
+      c.s.should eq(expected)
+    end
+  end
+
+  describe "#convert_array" do
+    it 'change objectForkey with number' do
+      source   = 'category.objectAtIndex(0)'
+      expected = 'category[0]'
+      c = Motion::CodeConverter.new(source)
+      c.convert_array
+      c.s.should eq(expected)
+    end
+
+    it 'change objectForkey with variable' do
+      source   = 'category.objectAtIndex(subcategory)'
+      expected = 'category[subcategory]'
+      c = Motion::CodeConverter.new(source)
+      c.convert_array
+      c.s.should eq(expected)
+    end
+  end
+
+
+  describe "#remove_type_declaration" do
     it 'remove type declaration' do
       source   = 'UIWindow* aWindow = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease]'
       expected = 'aWindow = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease]'

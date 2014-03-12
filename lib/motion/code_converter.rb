@@ -76,6 +76,8 @@ module Motion
       convert_methods
       convert_blocks
       convert_square_brackets_expression
+      convert_hash
+      convert_array
       convert_yes_no_to_true_false
       remove_semicolon_at_the_end
       remove_autorelease
@@ -118,6 +120,20 @@ module Motion
     def convert_blocks
       @s.gsub!(/\^\s*(\([^\)]+\))?\s*\{([^\}]+)\}/) do |match|
         self.class.convert_block_with_args(Regexp.last_match)
+      end
+      self
+    end
+
+    def convert_hash
+      @s.gsub!(/(\w+)\.objectForkey\(([^\)]+)\)/) do |match|
+        "#{$1}[#{$2}]"
+      end
+      self
+    end
+
+    def convert_array
+      @s.gsub!(/(\w+)\.objectAtIndex\(([^\)]+)\)/) do |match|
+        "#{$1}[#{$2}]"
       end
       self
     end
