@@ -285,6 +285,20 @@ S
       c = Motion::CodeConverter.new(source)
       c.tidy_up.s.should eq(expected)
     end
+
+    it 'tidy args' do
+      source   = "UITabBarItem.alloc.initWithTabBarSystemItem(UITabBarSystemItemBookmarks,  tag:0)"
+      expected = "UITabBarItem.alloc.initWithTabBarSystemItem(UITabBarSystemItemBookmarks, tag:0)"
+      c = Motion::CodeConverter.new(source)
+      c.tidy_up.s.should eq(expected)
+    end
+
+    it 'tidy args' do
+      source   = "some  =  value"
+      expected = "some = value"
+      c = Motion::CodeConverter.new(source)
+      c.tidy_up.s.should eq(expected)
+    end
   end
 
   describe "#result" do

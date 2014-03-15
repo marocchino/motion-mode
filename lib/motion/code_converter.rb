@@ -194,6 +194,8 @@ module Motion
     def tidy_up
       # convert arguments separated by ','
       @s.gsub!(/,([a-zA-Z_0-9]+):/, ', \1:')
+      @s.gsub!(/,\s+/, ', ')
+      @s.gsub!(/\s+=\s+/, ' = ')
       # convert block
       @s.gsub!(/:->\{([^\}]+)\}/, ': -> {\1}')
       # convert block with one args
