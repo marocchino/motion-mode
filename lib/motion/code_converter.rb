@@ -126,7 +126,7 @@ module Motion
     end
 
     def convert_hash
-      @s.gsub!(/(\w+)\.objectForkey\(([^\)]+)\)/) do |match|
+      @s.gsub!(/(\w+)\.objectForKey\(([^\)]+)\)/) do |match|
         "#{$1}[#{$2}]"
       end
       self

@@ -209,16 +209,16 @@ S
   end
 
   describe "#convert_hash" do
-    it 'change objectForkey with string' do
-      source   = 'category.objectForkey("subcategory")'
+    it 'change objectForKey with string' do
+      source   = 'category.objectForKey("subcategory")'
       expected = 'category["subcategory"]'
       c = Motion::CodeConverter.new(source)
       c.convert_hash
       c.s.should eq(expected)
     end
 
-    it 'change objectForkey with variable' do
-      source   = 'category.objectForkey(subcategory)'
+    it 'change objectForKey with variable' do
+      source   = 'category.objectForKey(subcategory)'
       expected = 'category[subcategory]'
       c = Motion::CodeConverter.new(source)
       c.convert_hash
@@ -235,7 +235,7 @@ S
       c.s.should eq(expected)
     end
 
-    it 'change objectForkey with variable' do
+    it 'change objectForKey with variable' do
       source   = 'category.objectAtIndex(subcategory)'
       expected = 'category[subcategory]'
       c = Motion::CodeConverter.new(source)
